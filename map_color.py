@@ -67,45 +67,5 @@ def backtrackingRec(state:dict)->dict:
   return FAIL # No assignment found for this iteration
 
 
-# Find all possible assignments
-def backtrackingRec2(assignments:list,state:dict)->dict:
-  # Searches for all possible solution and return it
-  # Return the variable assignments in the state format (dict)
-  if check_goal(state):
-    return state
-  var = get_unassigned_var(state)
-  for c in domain:
-    temp_state = assign_value(state,var,c)
-    print()
-    print("tempstate= ", temp_state)
-    if check_constraint(temp_state):
-      print("iter")
-      state = backtrackingRec2(assignments,temp_state)
-      print("iter2")
-      print("state1= ",state)
-      print("state != FAIL", state," !=", FAIL, state != FAIL)
-      if state != FAIL:
-        if check_goal(state):
-          assignments.append(state) # Check point: add the solution and return to the last node
-          print("Assignments = ", assignments)
-        else:
-          return state
-      # else remove the assignment
-      print("state= ",state)
-      del state[var]
-  return FAIL # No assignment found for this iteration
-
-
-assignments = []
-res2 = backtrackingRec2(assignments,state)
-print("res2= ", res2)
-print(assignments)
-#res = backtrackingRec(state)
-#print(res)
-#print(assignments)
-# import unittest
-# print(check_goal(test))
-# #test = assign_value(test, 'T','r')
-# #print(test)
-# var = get_unassigned_var(test)
-# print(var)
+res = backtrackingRec(state)
+print(res)
